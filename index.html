@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GOSEAL provides reliable joint sealing services for driveways, concrete joints, commercial sites, and residential projects.">
+  <title>GOSEAL | Reliable Joint Sealing Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="logo" href="#home" aria-label="GOSEAL home">
+        <span class="logo-mark">G</span>
+        <span>GOSEAL</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#booking">Booking</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero section">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Joint sealing specialists</p>
+        <h1>Reliable Joint Sealing Services</h1>
+        <p class="hero-subheading">Professional sealing solutions for driveways, concrete joints, commercial sites, and residential projects.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#booking">Request a Quote</a>
+          <a class="btn btn-secondary" href="#booking">Book Online</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about-section">
+      <div class="section-inner split-layout">
+        <div>
+          <p class="eyebrow">About GOSEAL</p>
+          <h2>Clean workmanship. Durable results. Professional service.</h2>
+        </div>
+        <div class="about-copy">
+          <p>GOSEAL provides reliable joint sealing services for residential, commercial, and concrete projects. Every job is handled with attention to detail, practical site knowledge, and a focus on long-lasting protection.</p>
+          <p>From driveways and expansion joints to larger commercial works, GOSEAL delivers tidy finishes, durable sealing, and straightforward communication from quote to completion.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section services-section">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="eyebrow">Services</p>
+          <h2>Joint sealing services built for tough, clean finishes.</h2>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <span class="service-icon">01</span>
+            <h3>Concrete Joint Sealing</h3>
+            <p>Neat, reliable sealing for concrete joints to help reduce water ingress, cracking, and long-term wear.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-icon">02</span>
+            <h3>Expansion Joint Sealing</h3>
+            <p>Flexible sealing solutions designed to handle movement across concrete slabs, paths, and structures.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-icon">03</span>
+            <h3>Driveway Sealing</h3>
+            <p>Professional driveway joint sealing for clean edges, better protection, and a stronger finished look.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-icon">04</span>
+            <h3>Commercial Joint Sealing</h3>
+            <p>Dependable sealing work for commercial sites, warehouses, car parks, and high-use concrete areas.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-icon">05</span>
+            <h3>Residential Sealing</h3>
+            <p>Clean and practical sealing for homes, paths, patios, driveways, and outdoor concrete areas.</p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-icon">06</span>
+            <h3>Maintenance and Repairs</h3>
+            <p>Repair and replacement of worn, split, or failed sealant to keep joints protected and looking sharp.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="booking" class="section booking-section">
+      <div class="section-inner booking-layout">
+        <div class="booking-intro">
+          <p class="eyebrow">Booking / Quote Request</p>
+          <h2>Tell us about the job.</h2>
+          <p>Send through your details and GOSEAL will contact you shortly to confirm the next steps.</p>
+          <div class="quote-note">
+            <strong>Fast details help.</strong>
+            Add the suburb, service type, and any measurements or site notes if you have them.
+          </div>
+        </div>
+
+        <form id="bookingForm" class="booking-form">
+          <!--
+            Future form connection options:
+            1. Formspree: add action="https://formspree.io/f/YOUR_FORM_ID" and method="POST".
+            2. Netlify Forms: add data-netlify="true", name="booking", and required hidden fields.
+            3. EmailJS: call emailjs.send(...) inside script.js after validation.
+            4. Custom backend: replace the localStorage save in script.js with a fetch() POST request.
+          -->
+          <div class="form-row">
+            <label for="fullName">Full name</label>
+            <input id="fullName" name="fullName" type="text" autocomplete="name" required>
+          </div>
+
+          <div class="form-row two-columns">
+            <div>
+              <label for="phone">Phone number</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+            </div>
+            <div>
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="jobAddress">Job address/suburb</label>
+            <input id="jobAddress" name="jobAddress" type="text" autocomplete="street-address" required>
+          </div>
+
+          <div class="form-row">
+            <label for="serviceType">Type of service needed</label>
+            <select id="serviceType" name="serviceType" required>
+              <option value="">Select a service</option>
+              <option>Concrete joint sealing</option>
+              <option>Expansion joint sealing</option>
+              <option>Driveway sealing</option>
+              <option>Commercial joint sealing</option>
+              <option>Residential sealing</option>
+              <option>Maintenance and repairs</option>
+            </select>
+          </div>
+
+          <div class="form-row two-columns">
+            <div>
+              <label for="preferredDate">Preferred date</label>
+              <input id="preferredDate" name="preferredDate" type="date">
+            </div>
+            <div>
+              <label for="preferredTime">Preferred time</label>
+              <input id="preferredTime" name="preferredTime" type="time">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="message">Message / job details</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell us about the job, approximate size, access, or any timing notes."></textarea>
+          </div>
+
+          <button class="btn btn-primary form-submit" type="submit">Submit Request</button>
+          <p id="formSuccess" class="form-success" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="section-inner contact-layout">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Ready to seal it properly?</h2>
+          <p>Contact GOSEAL for clean, dependable joint sealing across residential and commercial projects.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-item">
+            <span>Phone</span>
+            <a href="tel:+61000000000">[insert phone number]</a>
+          </div>
+          <div class="contact-item">
+            <span>Email</span>
+            <a href="mailto:info@goseal.com.au">[insert email address]</a>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="tel:+61000000000">Call GOSEAL</a>
+            <a class="btn btn-secondary dark" href="mailto:info@goseal.com.au">Email GOSEAL</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="currentYear"></span> GOSEAL. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
