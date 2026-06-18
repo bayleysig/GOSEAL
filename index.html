@@ -124,11 +124,10 @@
 
         <form id="bookingForm" class="booking-form">
           <!--
-            Future form connection options:
-            1. Formspree: add action="https://formspree.io/f/YOUR_FORM_ID" and method="POST".
-            2. Netlify Forms: add data-netlify="true", name="booking", and required hidden fields.
-            3. EmailJS: call emailjs.send(...) inside script.js after validation.
-            4. Custom backend: replace the localStorage save in script.js with a fetch() POST request.
+            Firebase setup:
+            1. Create a Firebase project and enable Firestore.
+            2. Open script.js and paste your Firebase config into the firebaseConfig object.
+            3. Booking requests will be saved to the Firestore collection called "bookings".
           -->
           <div class="form-row">
             <label for="fullName">Full name</label>
@@ -181,7 +180,7 @@
           </div>
 
           <button class="btn btn-primary form-submit" type="submit">Submit Request</button>
-          <p id="formSuccess" class="form-success" role="status" aria-live="polite"></p>
+          <p id="formMessage" class="form-success" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
@@ -216,6 +215,6 @@
     <p>&copy; <span id="currentYear"></span> GOSEAL. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

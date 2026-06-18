@@ -1,12 +1,35 @@
 // GOSEAL website interactions.
 // This file keeps the site static so it can run on GitHub Pages.
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+// Paste your Firebase web app config below.
+// In Firebase, go to Project settings > General > Your apps > Web app > SDK setup and configuration.
+const firebaseConfig = {
+  apiKey: "AIzaSyCVCIJ9nDQ7tWNYFzWChJGhBYRna16ZHwA",
+  authDomain: "goseal-842d4.firebaseapp.com",
+  projectId: "goseal-842d4",
+  storageBucket: "goseal-842d4.firebasestorage.app",
+  messagingSenderId: "122913307195",
+  appId: "1:122913307195:web:3bbcf88e0c75cf1755fa1e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
 const navItems = document.querySelectorAll(".nav-links a");
 const bookingForm = document.querySelector("#bookingForm");
-const formSuccess = document.querySelector("#formSuccess");
+const formMessage = document.querySelector("#formMessage");
 const currentYear = document.querySelector("#currentYear");
+const submitButton = bookingForm.querySelector(".form-submit");
 
 currentYear.textContent = new Date().getFullYear();
 
@@ -15,6 +38,19 @@ function closeMobileMenu() {
   navLinks.classList.remove("is-open");
   navToggle.setAttribute("aria-expanded", "false");
   document.body.classList.remove("menu-open");
+}
+
+function showFormMessage(message, type) {
+  formMessage.textContent = message;
+  formMessage.style.color = type === "error" ? "#b91c1c" : "#166534";
+}
+
+function getFieldValue(formData, fieldName) {
+  return String(formData.get(fieldName) || "").trim();
+}
+
+function hasFirebaseConfig() {
+  return Object.values(firebaseConfig).every((value) => !value.startsWith("PASTE_"));
 }
 
 navToggle.addEventListener("click", () => {
@@ -28,32 +64,47 @@ navItems.forEach((item) => {
   item.addEventListener("click", closeMobileMenu);
 });
 
-bookingForm.addEventListener("submit", (event) => {
+bookingForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+  showFormMessage("", "success");
+
+  if (!bookingForm.checkValidity()) {
+    bookingForm.reportValidity();
+    showFormMessage("Please complete the required fields before submitting.", "error");
+    return;
+  }
+
+  if (!hasFirebaseConfig()) {
+    showFormMessage("Firebase is not connected yet. Please paste your Firebase config into script.js.", "error");
+    return;
+  }
 
   const formData = new FormData(bookingForm);
   const request = {
-    fullName: formData.get("fullName"),
-    phone: formData.get("phone"),
-    email: formData.get("email"),
-    jobAddress: formData.get("jobAddress"),
-    serviceType: formData.get("serviceType"),
-    preferredDate: formData.get("preferredDate"),
-    preferredTime: formData.get("preferredTime"),
-    message: formData.get("message"),
-    submittedAt: new Date().toISOString()
+    fullName: getFieldValue(formData, "fullName"),
+    phone: getFieldValue(formData, "phone"),
+    email: getFieldValue(formData, "email"),
+    jobAddress: getFieldValue(formData, "jobAddress"),
+    serviceType: getFieldValue(formData, "serviceType"),
+    preferredDate: getFieldValue(formData, "preferredDate"),
+    preferredTime: getFieldValue(formData, "preferredTime"),
+    message: getFieldValue(formData, "message"),
+    createdAt: serverTimestamp()
   };
 
-  // GitHub Pages does not process form submissions by itself.
-  // To send real enquiries later, replace this localStorage section with one of:
-  // - Formspree: set the form action/method in index.html, or POST to Formspree here.
-  // - Netlify Forms: add the Netlify form attributes in index.html when hosted on Netlify.
-  // - EmailJS: call emailjs.send(...) here using your EmailJS service and template IDs.
-  // - Your own backend: send this request object with fetch("YOUR_API_URL", { method: "POST", ... }).
-  const savedRequests = JSON.parse(localStorage.getItem("gosealBookingRequests")) || [];
-  savedRequests.push(request);
-  localStorage.setItem("gosealBookingRequests", JSON.stringify(savedRequests));
+  try {
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
 
-  bookingForm.reset();
-  formSuccess.textContent = "Thanks, your request has been recorded. GOSEAL will contact you shortly.";
+    await addDoc(collection(db, "bookings"), request);
+
+    bookingForm.reset();
+    showFormMessage("Thanks, your request has been recorded. GOSEAL will contact you shortly.", "success");
+  } catch (error) {
+    console.error("Firebase booking submission failed:", error);
+    showFormMessage("Sorry, something went wrong. Please try again or contact GOSEAL directly.", "error");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit Request";
+  }
 });
