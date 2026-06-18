@@ -50,7 +50,7 @@ img {
 
 .navbar {
   width: min(1180px, calc(100% - 40px));
-  min-height: 76px;
+  min-height: 82px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -61,21 +61,20 @@ img {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   color: var(--white);
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: 0;
 }
 
-.logo-mark {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  background: var(--orange);
-  color: var(--white);
-  border-radius: 6px;
+.logo-image {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
 }
 
 .nav-links {
@@ -138,7 +137,7 @@ img {
 }
 
 .section {
-  scroll-margin-top: 76px;
+  scroll-margin-top: 82px;
 }
 
 .section-inner {
@@ -172,6 +171,16 @@ img {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
   padding: 112px 0 88px;
+}
+
+.hero-logo {
+  width: clamp(118px, 16vw, 176px);
+  height: clamp(118px, 16vw, 176px);
+  object-fit: contain;
+  margin-bottom: 26px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 20px 46px rgba(0, 0, 0, 0.28);
 }
 
 .eyebrow {
@@ -486,7 +495,7 @@ textarea:focus {
 
   .nav-links {
     position: fixed;
-    top: 76px;
+    top: 82px;
     left: 0;
     right: 0;
     display: grid;
@@ -510,6 +519,11 @@ textarea:focus {
     width: 100%;
     min-height: 50px;
     padding: 12px 8px;
+  }
+
+  .logo-image {
+    width: 52px;
+    height: 52px;
   }
 
   .hero {
