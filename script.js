@@ -8,6 +8,7 @@ import {
   getFirestore,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import emailjs from "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/+esm";
 
 // Paste your Firebase web app config below.
 // In Firebase, go to Project settings > General > Your apps > Web app > SDK setup and configuration.
@@ -22,6 +23,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// EmailJS sends the booking details to the GOSEAL email inbox.
+// Update these values in EmailJS if you ever create a new service or template.
+const emailJsConfig = {
+  publicKey: "PV06F_Ypi_mnu7Idw",
+  serviceId: "service_pjuw1ac",
+  templateId: "template_myzcu07"
+};
 
 const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
@@ -51,6 +60,13 @@ function getFieldValue(formData, fieldName) {
 
 function hasFirebaseConfig() {
   return Object.values(firebaseConfig).every((value) => !value.startsWith("PASTE_"));
+}
+
+function getReadableDateTime() {
+  return new Date().toLocaleString("en-AU", {
+    dateStyle: "medium",
+    timeStyle: "short"
+  });
 }
 
 navToggle.addEventListener("click", () => {
@@ -92,11 +108,24 @@ bookingForm.addEventListener("submit", async (event) => {
     createdAt: serverTimestamp()
   };
 
+  const emailParams = {
+    ...request,
+    createdAt: getReadableDateTime(),
+    name: request.fullName,
+    time: getReadableDateTime()
+  };
+
   try {
     submitButton.disabled = true;
     submitButton.textContent = "Submitting...";
 
     await addDoc(collection(db, "bookings"), request);
+    await emailjs.send(
+      emailJsConfig.serviceId,
+      emailJsConfig.templateId,
+      emailParams,
+      emailJsConfig.publicKey
+    );
 
     bookingForm.reset();
     showFormMessage("Thanks, your request has been recorded. GOSEAL will contact you shortly.", "success");
